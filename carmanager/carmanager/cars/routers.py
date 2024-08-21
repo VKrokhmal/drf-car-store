@@ -1,8 +1,15 @@
 from rest_framework import routers
 
-from carmanager.cars.views import CarViewSet, BrandViewSet
+from carmanager.cars.views import (
+    CarViewSet,
+    BrandViewSet,
+    CategoryViewSet,
+    AllCarsViewSet,
+)
 
 router = routers.SimpleRouter()
+router.register(r"", AllCarsViewSet, basename="all_cars")
 router.register(r"cars", CarViewSet)
 router.register(r"brands", BrandViewSet)
-print(router.urls)
+router.register(r"categories", CategoryViewSet)
+# print(router.urls)

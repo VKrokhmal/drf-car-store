@@ -1,35 +1,33 @@
 import factory
 from factory.django import DjangoModelFactory
+from carmanager.cars.models import Category, Brand, Car
 
-from carmanager.cars import models
+starting_seq_num = 200
 
 
 class CategoryFactory(DjangoModelFactory):
     class Meta:
-        model = models.Category
+        model = Category
 
-    name = factory.Faker("name")
+    @classmethod
+    def _setup_next_sequence(cls):
+        # Instead of defaulting to starting with 0, start with starting_seq_num.
+        return starting_seq_num
+
+    name = factory.Sequence(lambda x: f"Category {x}")
 
 
-class TeacherFactory(DjangoModelFactory):
+class BrandFactory(DjangoModelFactory):
     class Meta:
-        model = Teacher
+        model = Brand
 
-    user = factory.SubFactory(UserFactory)
-    payment_info = factory.Faker("text", max_nb_chars=500)
+    name = factory.Sequence(lambda b: f"Brand {b}")
 
 
-class StudentFactory(DjangoModelFactory):
+class CarFactory(DjangoModelFactory):
     class Meta:
-        model = Student
+        model = Car
 
-    user = factory.SubFactory(UserFactory)
-
-    @factory.post_generation
-    def teachers(self, create, extracted, **kwargs):
-        if not create:
-            return
-
-        if extracted:
-            for teacher in extracted:
-                self.teachers.add(teacher)
+    model = "suzuki"
+    category = factory.SubFactory(CategoryFactory)
+    make = factory.SubFactory(BrandFactory)

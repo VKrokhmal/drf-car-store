@@ -15,7 +15,7 @@ class Category(MPTTModel):
         Sedan = "Sedan"
         SUV = "SUV"
 
-    name = models.CharField(max_length=20, choices=CarTypes.choices)
+    name = models.CharField(max_length=20, choices=CarTypes.choices, unique=True)
     parent = TreeForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Brand(models.Model):
     class Meta:
         verbose_name = "Brand"
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
@@ -50,4 +50,4 @@ class Car(models.Model):
     )
 
     def __str__(self):
-        return f"Car: {self.model}"
+        return self.model
