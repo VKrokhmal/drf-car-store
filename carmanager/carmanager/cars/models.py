@@ -7,7 +7,7 @@ class Category(MPTTModel):
         verbose_name = "Category"
 
     class MPTTMeta:
-        order_insertion_by = ["name"]
+        order_insertion_by = ["category_name"]
 
     class CarTypes(models.TextChoices):
         Coupe = "Coupe"
@@ -15,21 +15,23 @@ class Category(MPTTModel):
         Sedan = "Sedan"
         SUV = "SUV"
 
-    name = models.CharField(max_length=20, choices=CarTypes.choices, unique=True)
+    category_name = models.CharField(
+        max_length=20, choices=CarTypes.choices, unique=True
+    )
     parent = TreeForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.category_name
 
 
 class Brand(models.Model):
     class Meta:
         verbose_name = "Brand"
 
-    brand_name = models.CharField(max_length=50, unique=True)
+    brand = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return self.brand_name
+        return self.brand
 
 
 class Car(models.Model):
