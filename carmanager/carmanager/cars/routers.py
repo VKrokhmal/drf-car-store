@@ -5,6 +5,7 @@ from carmanager.cars.views import (
     BrandViewSet,
     CategoryViewSet,
     AllCarsViewSet,
+    CarInstanceViewSet,
 )
 
 router = routers.SimpleRouter()
@@ -12,4 +13,5 @@ router.register(r"", AllCarsViewSet, basename="all_cars")
 router.register(r"cars", CarViewSet)
 router.register(r"brands", BrandViewSet)
 router.register(r"categories", CategoryViewSet)
-# print(router.urls)
+router.register("car-instance", CarInstanceViewSet)
+print(router.urls)
