@@ -20,17 +20,19 @@ class BrandSerializer(serializers.ModelSerializer):
 
 class CarSerializer(serializers.ModelSerializer):
     # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    # category = CategorySerializer()
-    category = SlugRelatedField(slug_field="category_name", read_only=True)
-    # make_field = BrandSerializer(source="make", read_only=True)
-    brand = SlugRelatedField(slug_field="brand", read_only=True)
+    category = CategorySerializer()
+
+    make_field = BrandSerializer(source="make", read_only=True)
+    # category = SlugRelatedField(slug_field="category_name", read_only=True)
+    # brand = SlugRelatedField(slug_field="brand", read_only=True)
 
     class Meta:
         model = Car
         fields = "__all__"
 
     def create(self, validated_data):
-        cat_add = validated_data.pop("category_name")
+        cat_add = validated_data.pop("category")
+
         print(cat_add)
         print(cat_add)
 
