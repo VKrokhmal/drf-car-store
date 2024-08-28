@@ -11,11 +11,11 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class BrandSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source="brand_name")
+    brand = serializers.CharField()
 
     class Meta:
         model = Brand
-        fields = ["name"]
+        fields = ["brand"]
 
 
 class CarSerializer(serializers.ModelSerializer):
