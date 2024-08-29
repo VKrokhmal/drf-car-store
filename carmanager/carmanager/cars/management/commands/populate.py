@@ -1,7 +1,7 @@
 import random
 
 from django.core.management.base import BaseCommand, CommandError
-from carmanager.tests.factories import BrandFactory
+from carmanager.tests.factories import BrandFactory, CarFactory
 
 
 class Command(BaseCommand):
@@ -14,8 +14,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         total = kwargs["total"]
-        for i in range(total):
-            b = BrandFactory.create(brand=f"Tesla{i+random.randrange(10, 200)}")
-            # print(b)
-            self.stdout.write(f"Brand with name: {b} was created")
-            # b.save()
+        car = CarFactory.create_batch(total)
+        # for i in range(total):
+        #     b = BrandFactory.create(brand=f"Tesla{i+random.randrange(10, 200)}")
+        #     # print(b)
+        #     self.stdout.write(f"Brand with name: {b} was created")
+        #     # b.save()

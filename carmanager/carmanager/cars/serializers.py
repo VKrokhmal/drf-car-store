@@ -23,8 +23,8 @@ class CarSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
 
     make_field = BrandSerializer(source="make", read_only=True)
-    # category = SlugRelatedField(slug_field="category_name", read_only=True)
-    # brand = SlugRelatedField(slug_field="brand", read_only=True)
+    category = SlugRelatedField(slug_field="category_name", read_only=True)
+    brand = SlugRelatedField(slug_field="brand", read_only=True)
 
     class Meta:
         model = Car
