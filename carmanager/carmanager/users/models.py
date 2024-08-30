@@ -6,10 +6,10 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    credit = models.PositiveSmallIntegerField(null=True, default="1")
+    credit = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f'{self.user}'
+        return f"{self.user.username} Profile"
 
 
 @receiver(post_save, sender=User)

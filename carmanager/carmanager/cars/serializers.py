@@ -1,47 +1,35 @@
 from rest_framework import serializers
-from rest_framework.relations import SlugRelatedField
-
 from .models import *
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ["id", "category_name"]
+        fields = ["id"]
 
 
 class BrandSerializer(serializers.ModelSerializer):
-    brand = serializers.CharField()
 
     class Meta:
         model = Brand
-        fields = ["brand"]
+        # fields = ["brand"]
+        fields = "__all__"
 
 
 class CarSerializer(serializers.ModelSerializer):
-    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    category = CategorySerializer()
-
-    make_field = BrandSerializer(source="make", read_only=True)
-    category = SlugRelatedField(slug_field="category_name", read_only=True)
-    brand = SlugRelatedField(slug_field="brand", read_only=True)
+    # category = CategorySerializer(read_only=True)
+    # brand = BrandSerializer(read_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    brand = serializers.PrimaryKeyRelatedField(queryset=Brand.objects.all())
 
     class Meta:
         model = Car
         fields = "__all__"
 
-    def create(self, validated_data):
-        cat_add = validated_data.pop("category")
-
-        print(cat_add)
-        print(cat_add)
-
-        return super().create(validated_data)
-
 
 class CarInstanceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CarInstance
+        model = CarItem
         fields = "__all__"
 
     car = CarSerializer()

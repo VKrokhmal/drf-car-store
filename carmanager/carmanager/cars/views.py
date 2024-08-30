@@ -8,7 +8,7 @@ from pygments.formatters import TerminalFormatter
 from pygments.lexers import SqlLexer
 from sqlparse import format
 
-from .models import Car, Brand, Category, CarInstance
+from .models import Car, Brand, Category, CarItem
 from .serializers import (
     CarSerializer,
     BrandSerializer,
@@ -47,7 +47,7 @@ class CarViewSet(ModelViewSet):
 
 
 class CarInstanceViewSet(ModelViewSet):
-    queryset = CarInstance.objects.all()
+    queryset = CarItem.objects.all()
     serializer_class = CarInstanceSerializer
 
 

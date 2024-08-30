@@ -23,7 +23,7 @@ from rest_framework import permissions
 
 from carmanager.cars.routers import router
 
-# from carmanager.users.routers import router as profile_router
+from carmanager.users.routers import router as profile_router
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -55,4 +55,4 @@ urlpatterns = [
 ]
 
 urlpatterns += router.urls
-# urlpatterns += profile_router.urls
+urlpatterns += profile_router.urls
