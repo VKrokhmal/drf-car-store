@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "carmanager.cars",
     "carmanager.users",
-    # "carmanager.cart",
+    "carmanager.cart",
 ]
 
 MIDDLEWARE = [
